@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/default_24"
+    android:layout_gravity="top">
+<TextView
+    android:id="@+id/txt_rider_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:text="userName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/txt_rider_name"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/looking_for_driver"
+        />
+
+    <Button
+        android:id="@+id/btn_accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/accept"
+        app:layout_constraintTop_toBottomOf="@id/txt_rider_name"
+        app:layout_constraintLeft_toLeftOf="@id/txt_rider_name"
+        android:layout_marginTop="@dimen/default_16"
+        />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_16"
+        app:layout_constraintTop_toBottomOf="@id/txt_rider_name"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/cancel"/>
+
+</android.support.constraint.ConstraintLayout>

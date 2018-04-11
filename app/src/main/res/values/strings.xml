@@ -3,4 +3,7 @@
     <string name="email">username</string>
     <string name="password">enter your id</string>
     <string name="title_activity_home">Map</string>
+    <string name="looking_for_driver">Is looking for driver</string>
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
 </resources>

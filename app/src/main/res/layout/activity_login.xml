@@ -41,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:text="jhjkh"
             android:paddingLeft="@dimen/default_8"
             android:textStyle="normal" />
     </android.support.design.widget.TextInputLayout>
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/default_8"
             android:inputType="text"
+            android:text="gjgjg"
             android:drawablePadding="@dimen/default_8"
             android:textStyle="normal"
             />
@@ -72,7 +74,6 @@
         android:text="login"
         android:onClick="loginBtn"
         android:textColor="@android:color/white"
-        android:foreground="?android:attr/selectableItemBackground"
         android:background="@drawable/sharp_button_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"

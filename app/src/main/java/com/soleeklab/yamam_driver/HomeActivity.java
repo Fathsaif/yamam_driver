@@ -4,6 +4,7 @@ import android.*;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -60,16 +61,16 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     private Boolean isConnected = false;
     CountDownTimer countDownTimer;
     String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vNTIuMTc0LjIyLjE4OC95YW1hbS9wdWJsaWMvYXBpL2F1dGgvdmVyaWZ5IiwiaWF0IjoxNTIwOTUyNTc1LCJleHAiOjM3NTIwOTUyNTc1LCJuYmYiOjE1MjA5NTI1NzUsImp0aSI6IjEzWHdnMmVaTWhjazQzRjgiLCJzdWIiOjEyLCJwcnYiOiIyNTkwOGUxMDQzYjNlYWUzYmQ1ZTUxNzllMzgwNWExOTBjZjdmOGE1In0.-7uFSkaXfME1DAlu3S4Hv2J_X07Z4buEUpcmMV9uIig";
-    double lat = 29.975088;
-    double lon = 31.279678;
+
     private final int INTERVAL_TIME = 10*1000;
     //ArrayList<com.soleeklab.yamam_driver.model.Location> driverLocation = new ArrayList<>();
     JSONArray driverLocations=new JSONArray();
-
+    String name ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        name = getIntent().getExtras().getString("name");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -163,7 +164,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
             public void onFinish() {
                 final JSONObject rider = new JSONObject();
                 try {
-                    rider.put("name", "saif");
+                    rider.put("name", name);
                     rider.put("state", 0);
                     rider.put("locations",driverLocations);
                 } catch (JSONException e) {
@@ -252,6 +253,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
+        mLastLocation = location;
         /*location.setLatitude(lat);
         location.setLongitude(lon);*/
         JSONObject currrentlocation = new JSONObject();
@@ -311,8 +313,8 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onResume() {
         super.onResume();
-        PermissionsUtils.showNoConnectionDialog(this);
-        PermissionsUtils.turnGPSOn(this);
+        //PermissionsUtils.showNoConnectionDialog(this);
+        //PermissionsUtils.turnGPSOn(this);
     }
 
     private void showDialog(final Trip trip) {

@@ -21,7 +21,9 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void loginBtn(View view){
         if (validate (usernameInpt.getEditText().getText().toString(),idInpt.getEditText().getText().toString())){
-            startActivity(new Intent(this,HomeActivity.class));
+            Intent intent = new Intent(this,HomeActivity.class);
+            intent.putExtra("name",usernameInpt.getEditText().getText().toString());
+            startActivity(intent);
             finish();
         }
     }

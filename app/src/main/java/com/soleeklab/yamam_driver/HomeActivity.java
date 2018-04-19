@@ -100,6 +100,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         buildGoogleApiClient();
         getLocationPermission();
+
         // Add a marker in Sydney and move the camera
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -113,7 +114,6 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap.setMyLocationEnabled(true);
         Log.d(LOG_TAG, "map connecting");
-
     }
     protected synchronized void buildGoogleApiClient(){
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -170,7 +170,9 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                mSocket.emit(channel, rider);
+                if (driverLocations.length()>0){
+                    mSocket.emit(channel, rider);
+                }
                 isConnected = true;
                 Log.d(LOG_TAG, "connected" + driverLocations.toString()+"");
                 driverLocations = new JSONArray(new ArrayList<String>());
@@ -254,20 +256,19 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location) {
         mLastLocation = location;
-        /*location.setLatitude(lat);
-        location.setLongitude(lon);*/
         JSONObject currrentlocation = new JSONObject();
         try {
             currrentlocation.put("lat",location.getLatitude());
             currrentlocation.put("lon",location.getLongitude());
         } catch (JSONException e) {
             e.printStackTrace();
+            Log.d(LOG_TAG+"location",e.getMessage());
         }
         driverLocations.put(currrentlocation);
         //driverLocation.add(new com.soleeklab.yamam_driver.model.Location(location.getLatitude(),location.getLongitude()));
         Log.d(LOG_TAG,location.getLatitude()+"");
         //mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(),location.getLongitude())));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),15));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),location.getLongitude()),15));
     }
     @Override
     public void onDestroy() {
@@ -338,7 +339,7 @@ public class HomeActivity extends FragmentActivity implements OnMapReadyCallback
                 alertDialog.dismiss();
             }
         });
-        okBtn.setOnClickListener(new View.OnClickListener() {
+        okBtn.setOnClickListener(   new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 countDownTimer.cancel();
